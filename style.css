@@ -3,9 +3,10 @@ body {
   font-family: helvetica;
 }
 map {
-  background-color: #228888;
+  background-color: #fff;
 }
 unit {
   border-radius: 1px;
-  border-color: #000000;
+  /*border-color: #000000;*/
+  fill:#828;
 }
