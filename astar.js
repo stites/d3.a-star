@@ -21,12 +21,15 @@ var c = colors = {
 
 /* UTIL FUNCTIONS */
 var rand = function(n){ return Math.random() * n; };
+var wallFlag = function(wallPercent){ return rand(wallPercent) === 0; };
 var getUnits = function(n,m){
-  var units = [];
+  var cols = [];
   for (var i = 0; i < n; i++){
+    var rows = [];
     for (var j = 0; j < m; j++){
-      units.push({ x:i, y:j })
+      rows.push({ x:i, y:j, wall:wallFlag(wallPercent) })
     }
+    cols.push(rows);
   }
   return units;
 }
