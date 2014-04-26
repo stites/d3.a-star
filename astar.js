@@ -27,22 +27,30 @@ var getUnits = function(n,m){
 }
 
 var map = d3.select('body')
-            .append('svg')
+            .append('div')
             .attr({
-              width: w,
-              height: h,
+              // width: w,
+              // height: h,
+              // fill: c.border,
               class: 'map',
             });
 
 
 var unit = map.selectAll('span')
               .data(getUnits(n,m))
-              .enter().append('svg:rect')
-                .attr({
-                  x: function(d){return d.x * unitLen},
-                  y: function(d){return d.y * unitLen},
-                  width:  side,
-                  height: side,
-                  fill: c.empty,
-                  class: 'unit',
+              .enter().append('div')
+                // .attr({
+                //   x: function(d){return d.x * unitLen},
+                //   y: function(d){return d.y * unitLen},
+                //   width:  side,
+                //   height: side,
+                //   fill: c.empty,
+                //   class: 'unit',
+                // })
+                .style({
+                   top: function(d){return d.x * unitLen},
+                   left: function(d){return d.y * unitLen},
+                   // stroke: 'black',
+                   width: side + 'px', 
+                   height: side + 'px' 
                 });

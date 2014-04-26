@@ -3,8 +3,9 @@ body {
   font-family: helvetica;
 }
 map {
-  background-color: #000;
+  /*position:relative;*/
 }
 unit {
-  background: black;
+  position: absolute;
+  background-color: '#828';
 }
