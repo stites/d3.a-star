@@ -5,7 +5,8 @@ var w = window.innerWidth,
     unitLen = 20,
     border = 2,
     side = unitLen - border,
-    wallPercent = 4;
+    wallPercent = 4,
+    duration = 500,
     n = ~~(w / side),
     m = ~~(h / side);
 
@@ -71,11 +72,13 @@ var units = map.selectAll('span')
 
 units.on('mouseenter', function(d, i){
   var color = d.wall ? c.wall : c.active;
-  d3.select(this).attr('fill', color);
+    d3.select(this).attr('fill', color);
 });
 
 units.on('mouseleave', function(d, i){
   var color = d.wall ? c.wall : c.empty;
-  d3.select(this).attr('fill', color);
+  setTimeout(function(){
+    d3.select(this).attr('fill', color);
+  }.bind(this), duration);
 });
 
