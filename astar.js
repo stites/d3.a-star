@@ -71,6 +71,7 @@ var units = map.selectAll('span')
                   class: 'unit',
                 });
 
+/* CLICK EVENTS */
 units.on('mouseenter', function(d, i){
   var color = d.wall ? c.wall : c.active;
     d3.select(this).attr('fill', color);
