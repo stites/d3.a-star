@@ -27,6 +27,7 @@ var getUnits = function(n,m){
   return units;
 }
 
+/* MAKE MAP */
 var map = d3.select('body')
             .append('svg')
             .attr({
@@ -35,20 +36,32 @@ var map = d3.select('body')
               class: 'map',
             });
 
+/* MAKE BACKDROP */
+map.selectAll('span')
+  .data([0])
+  .enter()
+    .append('svg:rect')
+    .attr({
+      fill: c.border,
+      width: w,
+      height: h,
+    })
+
+/* CREATE BOARD */
 var units = map.selectAll('span')
               .data( getUnits(n,m).map(function(d, idx, cxt){
                   d.wall = ~~(rand(wallPercent)) === 0;
                   return d;
                 })
               )
-              .enter().append('svg:rect')
+              .enter()
+                .append('svg:rect')
                 .attr({
                   x: function(d){return d.x * unitLen},
                   y: function(d){return d.y * unitLen},
                   width:  side,
                   height: side,
                   fill: function(d){
-                    // console.log(d)
                     return d.wall ? c.wall : c.empty;
                   },
                   class: 'unit',
