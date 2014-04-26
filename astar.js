@@ -70,10 +70,12 @@ var units = map.selectAll('span')
                 });
 
 units.on('mouseenter', function(d, i){
-  d3.select(this).attr('fill', c.active);
+  var color = d.wall ? c.wall : c.active;
+  d3.select(this).attr('fill', color);
 });
 
 units.on('mouseleave', function(d, i){
-  console.log('mouseexit')
+  var color = d.wall ? c.wall : c.empty;
+  d3.select(this).attr('fill', color);
 });
 
