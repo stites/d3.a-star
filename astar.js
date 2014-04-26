@@ -3,7 +3,7 @@
 var w = window.innerWidth,
     h = window.innerHeight,
     unitLen = 20,
-    border = 1,
+    border = 2,
     side = unitLen - border,
     n = ~~(w / side),
     m = ~~(h / side);
@@ -43,6 +43,6 @@ var unit = map.selectAll('span')
                   y: function(d){return d.y * unitLen},
                   width:  side,
                   height: side,
-                  fill: c.empty,
+                  fill: c.wall,
                   class: 'unit',
                 });
