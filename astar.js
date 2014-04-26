@@ -39,14 +39,14 @@ var map = d3.select('body')
 var unit = map.selectAll('span')
               .data(getUnits(n,m))
               .enter().append('div')
-                // .attr({
+                .attr({
                 //   x: function(d){return d.x * unitLen},
                 //   y: function(d){return d.y * unitLen},
                 //   width:  side,
                 //   height: side,
                 //   fill: c.empty,
-                //   class: 'unit',
-                // })
+                  class: 'unit',
+                })
                 .style({
                    top: function(d){return d.x * unitLen},
                    left: function(d){return d.y * unitLen},
