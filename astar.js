@@ -15,6 +15,7 @@ var c = colors = {
   empty: '#FFF',
   wall: '#4682B4',
   border: '#bbb',
+  red: '#0FF',
   active: '#FF703F',
 };
 
@@ -82,3 +83,7 @@ units.on('mouseleave', function(d, i){
   }.bind(this), duration);
 });
 
+units.on('click', function(d, i){
+  var color = d.wall ? c.wall : c.red;
+    d3.select(this).attr('fill', color);
+});
