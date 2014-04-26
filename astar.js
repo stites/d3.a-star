@@ -55,8 +55,10 @@ map.selectAll('span')
     })
 
 /* CREATE BOARD */
+var mapData = generateMap(n,m);
+
 var units = map.selectAll('span')
-              .data( _(generateMap(n,m)).reduce(function(memo, row){
+              .data( _(mapData).reduce(function(memo, row){
                   return memo.concat(row);
                 }, []) )
               .enter()
