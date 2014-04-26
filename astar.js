@@ -56,11 +56,9 @@ map.selectAll('span')
 
 /* CREATE BOARD */
 var units = map.selectAll('span')
-              .data( generateMap(n,m).map(function(d, idx, cxt){
-                  d.wall = ~~(rand(wallPercent)) === 0;
-                  return d;
-                })
-              )
+              .data( generateMap(n,m).reduce(function(memo, row){
+                  return memo.concat(row);
+                }, []) )
               .enter()
                 .append('svg:rect')
                 .attr({
