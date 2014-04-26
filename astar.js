@@ -21,7 +21,7 @@ var c = colors = {
 
 /* UTIL FUNCTIONS */
 var rand = function(n){ return Math.random() * n; };
-var wallFlag = function(wallPercent){ return rand(wallPercent) === 0; };
+var wallFlag = function(wallPercent){ return ~~rand(wallPercent) === 0; };
 var generateMap = function(n,m){
   var cols = [];
   for (var i = 0; i < n; i++){
@@ -31,7 +31,7 @@ var generateMap = function(n,m){
     }
     cols.push(rows);
   }
-  return units;
+  return cols;
 }
 
 /* MAKE MAP */
@@ -56,7 +56,7 @@ map.selectAll('span')
 
 /* CREATE BOARD */
 var units = map.selectAll('span')
-              .data( generateMap(n,m).reduce(function(memo, row){
+              .data( _(generateMap(n,m)).reduce(function(memo, row){
                   return memo.concat(row);
                 }, []) )
               .enter()
