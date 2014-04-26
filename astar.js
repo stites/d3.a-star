@@ -2,9 +2,17 @@
 /* VARIABLES */
 var w = window.innerWidth,
     h = window.innerHeight,
-    side = 20,
+    unitLen = 20,
+    border = 1,
+    side = unitLen - border,
     n = ~~(w / side),
     m = ~~(h / side);
+
+var c = colors = {
+  empty: '#fff',
+  wall: '#4682B4',
+  border: '#bbb',
+}
 
 /* UTIL FUNCTIONS */
 var rand = function(n){ return Math.random() * n; };
@@ -31,9 +39,10 @@ var unit = map.selectAll('span')
               .data(getUnits(n,m))
               .enter().append('svg:rect')
                 .attr({
-                  x: function(d, i){return d.x * side},
-                  y: function(d, i){return d.y * side},
+                  x: function(d){return d.x * unitLen},
+                  y: function(d){return d.y * unitLen},
                   width:  side,
                   height: side,
+                  fill: c.empty,
                   class: 'unit',
                 });
