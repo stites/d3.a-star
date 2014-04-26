@@ -9,11 +9,13 @@ var w = window.innerWidth,
     n = ~~(w / side),
     m = ~~(h / side);
 
+var mouse = { x: w, y: h };
 var c = colors = {
   empty: '#FFF',
   wall: '#4682B4',
   border: '#bbb',
-}
+  active: '#FF703F',
+};
 
 /* UTIL FUNCTIONS */
 var rand = function(n){ return Math.random() * n; };
@@ -67,5 +69,11 @@ var units = map.selectAll('span')
                   class: 'unit',
                 });
 
+units.on('mouseenter', function(d, i){
+  d3.select(this).attr('fill', c.active);
+});
 
+units.on('mouseleave', function(d, i){
+  console.log('mouseexit')
+});
 
