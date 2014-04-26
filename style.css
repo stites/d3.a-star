@@ -1,0 +1,11 @@
+body { 
+  margin: 0;
+  font-family: helvetica;
+}
+map {
+  background-color: #228888;
+}
+unit {
+  border-radius: 1px;
+  border-color: #000000;
+}
