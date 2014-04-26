@@ -22,7 +22,7 @@ var c = colors = {
 /* UTIL FUNCTIONS */
 var rand = function(n){ return Math.random() * n; };
 var wallFlag = function(wallPercent){ return rand(wallPercent) === 0; };
-var getUnits = function(n,m){
+var generateMap = function(n,m){
   var cols = [];
   for (var i = 0; i < n; i++){
     var rows = [];
@@ -56,7 +56,7 @@ map.selectAll('span')
 
 /* CREATE BOARD */
 var units = map.selectAll('span')
-              .data( getUnits(n,m).map(function(d, idx, cxt){
+              .data( generateMap(n,m).map(function(d, idx, cxt){
                   d.wall = ~~(rand(wallPercent)) === 0;
                   return d;
                 })
