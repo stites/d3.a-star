@@ -34,15 +34,17 @@ var map = d3.select('body')
               class: 'map',
             });
 
+var units = map.selectAll('span')
+               .data(getUnits(n,m))
+               .enter().append('svg:rect')
+                 .attr({
+                   x: function(d){return d.x * unitLen},
+                   y: function(d){return d.y * unitLen},
+                   width:  side,
+                   height: side,
+                   fill: c.wall,
+                   class: 'unit',
+                 });
 
-var unit = map.selectAll('span')
-              .data(getUnits(n,m))
-              .enter().append('svg:rect')
-                .attr({
-                  x: function(d){return d.x * unitLen},
-                  y: function(d){return d.y * unitLen},
-                  width:  side,
-                  height: side,
-                  fill: c.wall,
-                  class: 'unit',
-                });
+
+
