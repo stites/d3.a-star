@@ -1,0 +1,26 @@
+{
+  "name": "astar",
+  "version": "0.0.0",
+  "description": "",
+  "main": "astar.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "karma": "~0.12.12",
+    "mocha": "~1.18.2",
+    "karma-mocha": "~0.1.3",
+    "sinon-chai": "~2.5.0",
+    "chai": "~1.9.1",
+    "sinon": "~1.9.1",
+    "karma-chai-sinon": "~0.1.3"
+  },
+  "devDependencies": {
+    "karma-phantomjs-launcher": "~0.1.4"
+  }
+}
