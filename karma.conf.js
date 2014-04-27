@@ -5,7 +5,7 @@ module.exports = function(config) {
   config.set({
 
     // base path that will be used to resolve all patterns (eg. files, exclude)
-    basePath: '',
+    basePath: '.',
 
 
     // frameworks to use
@@ -15,6 +15,8 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
+      'js/lib/d3/d3.js',
+      'js/lib/lodash/dist/lodash.js',
       'js/**/*.js',
       'tests/**/*Spec.js',
     ],
@@ -23,7 +25,6 @@ module.exports = function(config) {
     // list of files to exclude
     exclude: [
       'node_modules',
-      'js/lib'
     ],
 
 

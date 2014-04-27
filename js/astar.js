@@ -99,7 +99,7 @@ units.on('click', function(d, i){
 
 /* A-STAR SORT */
 var source = mapData[0][0],
-    target = mapData[n][m];
+    target = mapData[n-1][m-1];
 
 var openList = [];
 var closedList = [];
