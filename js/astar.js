@@ -104,7 +104,7 @@ var source = mapData[0][0],
 var openList = [];
 var closedList = [];
 
-(function a (node, target, graph) {
+function astar (node, target, graph) {
   // base case
   if ( (node.x === target.x) && (node.y === target.y) ) {
     return ;// done
@@ -120,4 +120,6 @@ var closedList = [];
     }
   }
   return
-})(source, target, mapData)
+}
+
+astar(source, target, mapData);
