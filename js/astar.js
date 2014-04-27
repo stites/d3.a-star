@@ -97,29 +97,32 @@ units.on('click', function(d, i){
     d3.select(this).attr('fill', color);
 });
 
-/* A-STAR SORT */
-var source = mapData[0][0],
-    target = mapData[n-1][m-1];
+/* A-STAR SORT IN PSEUDOCLASSICAL STYLE */
+// temp variables
+source = mapData[0][0],
+target = mapData[n-1][m-1];
 
-var openList = [];
-var closedList = [];
-
-function astar (node, target, graph) {
-  // base case
-  if ( (node.x === target.x) && (node.y === target.y) ) {
-    return ;// done
-  } else {
-    if (node.x - 1 > 0) {
-      // check to see if it's a wall
-    }
-    if (node.x + 1 > n) {
-    }
-    if (node.y - 1 > 0) {
-    }
-    if (node.y + 1 > m) {
-    }
-  }
-  return
+function A (graph) {
+  this.graph = graph;
+  this.openList = [];
+  this.closedList = [];
 }
 
-astar(source, target, mapData);
+A.prototype.run = function (node, target, graph) {
+  // base case
+  //if ( (node.x === target.x) && (node.y === target.y) ) {
+  //  return ;// done
+  //} else {
+  //  if (node.x - 1 > 0) {
+  //    // check to see if it's a wall
+  //  }
+  //  if (node.x + 1 > n) {
+  //  }
+  //  if (node.y - 1 > 0) {
+  //  }
+  //  if (node.y + 1 > m) {
+  //  }
+  //}
+  return [];
+}
+
