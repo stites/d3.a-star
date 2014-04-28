@@ -175,3 +175,36 @@ A.prototype.run = function (source, target) {
   return [];
 }
 
+A.prototype.getNeighbours = function(node){
+  var neighbours = [];
+  var x, y;
+  if(node.x + 1 < this.graph[0].length){
+    x = node.x + 1;
+    y = node.y;
+    if (!this.graph[y][x].wall) {
+      neighbours.push(this.graph[y][x]);
+    }
+  }
+  if(node.x - 1 > 0 && ){
+    x = node.x - 1;
+    y = node.y;
+    if (!this.graph[y][x].wall) {
+      neighbours.push(this.graph[y][x]);
+    }
+  }
+  if(node.y + 1 < this.graph.length && ){
+    x = node.x;
+    y = node.y + 1;
+    if (!this.graph[y][x].wall) {
+      neighbours.push(this.graph[y][x]);
+    }
+  }
+  if(node.y - 1 > 0 && ){
+    x = node.x;
+    y = node.y - 1;
+    if (!this.graph[y][x].wall) {
+      neighbours.push(this.graph[y][x]);
+    }
+  }
+  return neighbours;
+}
