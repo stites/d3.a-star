@@ -6,6 +6,7 @@ var w           = window.innerWidth,
     side        = unitLen - border,
     wallPercent = 4,
     duration    = 500,
+    globalG     = 0,
     n           = ~~(w / side),
     m           = ~~(h / side);
 
@@ -30,6 +31,7 @@ var generateMap = function(n,m){
         x: i,
         y: j,
         wall: wallFlag(wallPercent),
+        gScore: globalG,
         path: false,
       })
     }
@@ -126,6 +128,8 @@ A.prototype.run = function (source, target) {
   this.openList.push(source);
   var current;
   var currentF;
+  var F;
+  var newG;
   var lowestF = Infinity;
   var currentIdx;
   while (this.openList.length > 0) {
@@ -146,6 +150,14 @@ A.prototype.run = function (source, target) {
     this.closedList.push(current);
 
     neighbours = this.getNeighbours(current);
+
+    for(i = 0; i < neighbours.length; i++){
+      if (_(closedList).contains(neighbours[i])){
+        continue;
+      }
+      newG = current.gScore + this.heuristic(current, neighbour[i]);
+
+    }
 
   }
   this.path.push(source);
