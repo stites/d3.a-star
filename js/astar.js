@@ -155,7 +155,7 @@ A.prototype.run = function (source, target) {
       if (_(closedList).contains(neighbours[i])){
         continue;
       }
-      newG = current.gScore + this.heuristic(current, neighbour[i]);
+      newG = current.gScore + this.dist(current, neighbour[i]);
 
     }
 
