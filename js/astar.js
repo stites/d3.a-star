@@ -4,9 +4,9 @@ var w           = window.innerWidth,
     unitLen     = 20,
     border      = 2,
     side        = unitLen - border,
-    wallPercent = 4,
+    wallPercent = 1000000,
     duration    = 500,
-    globalG     = 0,
+    globalG     = 1,
     n           = ~~(w / side),
     m           = ~~(h / side);
 
@@ -99,13 +99,9 @@ units.on('click', function(d, i){
 });
 
 /* A-STAR SORT IN PSEUDOCLASSICAL STYLE */
-// temp variables
-source = mapData[0][0],
-target = mapData[n-1][m-1];
 
-function A (graph, gScore) {
+function A (graph) {
   this.graph = graph;
-  this.gScore = gScore;
   this.openList = [];
   this.closedList = [];
   this.path = [];
@@ -121,13 +117,13 @@ A.prototype.manhattan = function (source, target) {
 };
 
 A.prototype.Fscore = function (source, target) {
-  return this.gScore + this.heuristic(source, target);
+  return source.gScore + this.heuristic(source, target);
 };
 
 A.prototype.run = function (source, target) {
   this.openList.push(source);
-  var _cl = _(closedList);
-  var _ol = _(openList);
+  var _cl = _(this.closedList);
+  var _ol = _(this.openList);
   var inOpenList;
   var current;
   var currentF;
@@ -137,17 +133,17 @@ A.prototype.run = function (source, target) {
   var currentIdx;
   while (this.openList.length > 0) {
 
-    for(var i = 0; i < openList.length; i++){
-      currentF = this.Fscore(openList[i], target);
+    for(var i = 0; i < this.openList.length; i++){
+      currentF = this.Fscore(this.openList[i], target);
       if (currentF < lowestF){
         lowestF = currentF;
         currentIdx = i;
       }
     }
-    current = this.openList.splice(i, 1);
+    current = this.openList.splice(currentIdx, 1)[0];
 
     if (current === target){
-      return this.reconstructPath(this.path, goal);
+      return this.reconstructPath(this.path, target);
     }
 
     this.closedList.push(current);
@@ -159,7 +155,7 @@ A.prototype.run = function (source, target) {
       if (_cl.contains(n)){
         continue;
       }
-      tempG = current.gScore + this.dist(current, n);
+      tempG = this.Fscore(current, n);
       inOpenList = _ol.contains(n);
       if (!inOpenList || tempG < n.gScore ){
         this.path.push(current);
@@ -182,6 +178,7 @@ A.prototype.getNeighbours = function(node){
 
   function addNeighbour(nx, ny){
     var newNode = graph[ny][nx];
+    console.log('neighbour: (%d, %d)', nx, ny)
     if (!graph[ny][nx].wall) {
       newNode.parent = node;
       neighbours.push(newNode);
@@ -206,8 +203,16 @@ A.prototype.getNeighbours = function(node){
 A.prototype.reconstructPath = function(path, node) {
   if (_(path).contains(node)){
     p = this.reconstructPath(path, node.parent);
-    return node.concat(p);
+    console.log('path: (%d, %d)', p.x, p.y);
+    return [node].concat(p);
   } else {
-    return node;
+    return [node];
   }
 }
+
+// temp variables
+source = mapData[0][0],
+target = mapData[4-1][4-1];
+var x = generateMap(4,4)
+var a = new A(x)
+// a.run(source, target)
