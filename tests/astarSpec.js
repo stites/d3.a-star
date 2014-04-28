@@ -1,10 +1,11 @@
 describe('astar traversal, function astar:', function(){
-  var map, source, target, astarMap, path;
+  var map, source, target, astarMap, path, gScore;
 
   beforeEach(function(){
     map = generateMap(5,7);
     source = map[2][1];
     target = map[2][5];
+    gScore = 0;
 
     _.each([
     map[1][3],
@@ -14,7 +15,7 @@ describe('astar traversal, function astar:', function(){
       node.wall = true;
     });
 
-    astarMap = new A(map, 0);
+    astarMap = new A(map, gScore);
   });
 
   describe('the initialization of A*', function(){
@@ -77,6 +78,42 @@ describe('astar traversal, function astar:', function(){
       astarMap.Fscore(source, target);
       expect(astarMap.heuristic.calledOnce).to.equal(true);
     });
+
+    it('should return gScore plus the heuristic', function () {
+      var score;
+      source.x = 0;
+      source.y = 0;
+
+      target.x = 0;
+      target.y = 0;
+      gScore = 0;
+      astarMap = new A(map, gScore);
+      score = astarMap.Fscore(source, target)
+      expect(score).to.equal(0);
+
+      target.x = 0;
+      target.y = 0;
+      gScore = 5;
+      astarMap = new A(map, gScore);
+      score = astarMap.Fscore(source, target)
+      expect(score).to.equal(5);
+
+      target.x = 4;
+      target.y = 4;
+      gScore = 0;
+      astarMap = new A(map, gScore);
+      score = astarMap.Fscore(source, target)
+      expect(score).to.equal(8);
+
+      target.x = 4;
+      target.y = 4;
+      gScore = 5;
+      astarMap = new A(map, gScore);
+      score = astarMap.Fscore(source, target)
+      expect(score).to.equal(13);
+    
+    });
+
   });
 
 
