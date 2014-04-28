@@ -38,10 +38,11 @@ describe('astar traversal, function astar:', function(){
       expect(path).to.be.an('array');
     });
 
-    it('should add the source node to an open list', function(){
+    it('should add the source node to an open list and path', function(){
       path = astarMap.run(source, target);
 
-      expect(path).to.be.an('array');
+      expect(astarMap.openList).to.contain(source);
+      expect(path).to.contain(source);
     });
   });
 })

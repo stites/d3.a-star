@@ -109,7 +109,9 @@ function A (graph) {
   this.path = [];
 }
 
-A.prototype.run = function (node, target, graph) {
+A.prototype.run = function (source, target) {
+  this.path.push(source);
+  this.openList.push(source);
   // base case
   //if ( (node.x === target.x) && (node.y === target.y) ) {
   //  return ;// done
