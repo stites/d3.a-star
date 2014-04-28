@@ -178,33 +178,22 @@ A.prototype.run = function (source, target) {
 A.prototype.getNeighbours = function(node){
   var neighbours = [];
   var x, y;
+  function addNeighbour(nx, ny){
+    if (!this.graph[ny][nx].wall) {
+      neighbours.push(this.graph[ny][nx]);
+    }
+  }
   if(node.x + 1 < this.graph[0].length){
-    x = node.x + 1;
-    y = node.y;
-    if (!this.graph[y][x].wall) {
-      neighbours.push(this.graph[y][x]);
-    }
+    addNeighbour(node.x + 1, node.y);
   }
-  if(node.x - 1 > 0 && ){
-    x = node.x - 1;
-    y = node.y;
-    if (!this.graph[y][x].wall) {
-      neighbours.push(this.graph[y][x]);
-    }
+  if(node.x - 1 > 0){
+    addNeighbour(node.x - 1, node.y);
   }
-  if(node.y + 1 < this.graph.length && ){
-    x = node.x;
-    y = node.y + 1;
-    if (!this.graph[y][x].wall) {
-      neighbours.push(this.graph[y][x]);
-    }
+  if(node.y + 1 < this.graph.length){
+    addNeighbour(node.x, node.y + 1);
   }
-  if(node.y - 1 > 0 && ){
-    x = node.x;
-    y = node.y - 1;
-    if (!this.graph[y][x].wall) {
-      neighbours.push(this.graph[y][x]);
-    }
+  if(node.y - 1 > 0){
+    addNeighbour(node.x, node.y - 1);
   }
   return neighbours;
 }
