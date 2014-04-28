@@ -73,33 +73,7 @@ A.prototype.run = function (source, target) {
 }
 
 A.prototype.getNeighbours = function(node){
-  var neighbours = [];
-  var x, y;
-  var graph = this.graph;
-  var _cl = _(this.closedList);
 
-  function addNeighbour(nx, ny){
-    var newNode = graph[ny][nx];
-    console.log('neighbour: (%d, %d)', nx, ny)
-    if (!graph[ny][nx].wall && _cl.contains(newNode)) {
-      newNode.parent = node;
-      neighbours.push(newNode);
-    }
-  }
-
-  if(node.x + 1 < graph[0].length){
-    addNeighbour(node.x + 1, node.y);
-  }
-  if(node.x - 1 > 0){
-    addNeighbour(node.x - 1, node.y);
-  }
-  if(node.y + 1 < graph.length){
-    addNeighbour(node.x, node.y + 1);
-  }
-  if(node.y - 1 > 0){
-    addNeighbour(node.x, node.y - 1);
-  }
-  return neighbours;
 }
 
 A.prototype.reconstructPath = function(path, node) {
