@@ -178,22 +178,36 @@ A.prototype.run = function (source, target) {
 A.prototype.getNeighbours = function(node){
   var neighbours = [];
   var x, y;
+  var graph = this.graph;
+
   function addNeighbour(nx, ny){
-    if (!this.graph[ny][nx].wall) {
-      neighbours.push(this.graph[ny][nx]);
+    var newNode = graph[ny][nx];
+    if (!graph[ny][nx].wall) {
+      newNode.parent = node;
+      neighbours.push(newNode);
     }
   }
-  if(node.x + 1 < this.graph[0].length){
+
+  if(node.x + 1 < graph[0].length){
     addNeighbour(node.x + 1, node.y);
   }
   if(node.x - 1 > 0){
     addNeighbour(node.x - 1, node.y);
   }
-  if(node.y + 1 < this.graph.length){
+  if(node.y + 1 < graph.length){
     addNeighbour(node.x, node.y + 1);
   }
   if(node.y - 1 > 0){
     addNeighbour(node.x, node.y - 1);
   }
   return neighbours;
+}
+
+A.prototype.reconstructPath = function(path, node) {
+  if (_(path).contains(node)){
+    p = this.reconstructPath(path, node.parent);
+    return node.concat(p);
+  } else {
+    return node;
+  }
 }
