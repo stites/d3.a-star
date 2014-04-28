@@ -126,10 +126,13 @@ A.prototype.Fscore = function (source, target) {
 
 A.prototype.run = function (source, target) {
   this.openList.push(source);
+  var _cl = _(closedList);
+  var _ol = _(openList);
+  var inOpenList;
   var current;
   var currentF;
   var F;
-  var newG;
+  var tempG;
   var lowestF = Infinity;
   var currentIdx;
   while (this.openList.length > 0) {
@@ -152,15 +155,23 @@ A.prototype.run = function (source, target) {
     neighbours = this.getNeighbours(current);
 
     for(i = 0; i < neighbours.length; i++){
-      if (_(closedList).contains(neighbours[i])){
+      var n = neighbours[i];
+      if (_cl.contains(n)){
         continue;
       }
-      newG = current.gScore + this.dist(current, neighbour[i]);
+      tempG = current.gScore + this.dist(current, n);
+      inOpenList = _ol.contains(n);
+      if (!inOpenList || tempG < n.gScore ){
+        this.path.push(current);
+        n.gScore = tempG;
+        n.fScore = this.heuristic(n, target);
+        if (!inOpenList) {
+          this.openList.push(n);
+        }
+      }
 
     }
-
   }
-  this.path.push(source);
-  return this.path;
+  return [];
 }
 
