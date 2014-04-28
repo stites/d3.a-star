@@ -1,103 +1,3 @@
-/* VARIABLES */
-var w           = window.innerWidth,
-    h           = window.innerHeight,
-    unitLen     = 20,
-    border      = 2,
-    side        = unitLen - border,
-    wallPercent = 1000000,
-    duration    = 500,
-    globalG     = 1,
-    n           = ~~(w / side),
-    m           = ~~(h / side);
-
-var mouse = { x: w, y: h };
-var c = colors = {
-  empty:  '#FFF',
-  wall:   '#4682B4',
-  border: '#bbb',
-  red:    '#0FF',
-  active: '#FF703F',
-};
-
-/* UTIL FUNCTIONS */
-var rand = function(n){ return Math.random() * n; };
-var wallFlag = function(wallPercent){ return ~~rand(wallPercent) === 0; };
-var generateMap = function(n,m){
-  var cols = [];
-  for (var i = 0; i < n; i++){
-    var rows = [];
-    for (var j = 0; j < m; j++){
-      rows.push({
-        x: i,
-        y: j,
-        wall: wallFlag(wallPercent),
-        gScore: globalG,
-        path: false,
-      })
-    }
-    cols.push(rows);
-  }
-  return cols;
-}
-
-/* MAKE MAP */
-var map = d3.select('body')
-            .append('svg')
-            .attr({
-              width: w,
-              height: h,
-              class: 'map',
-            });
-
-/* MAKE BACKDROP */
-map.selectAll('span')
-  .data([0])
-  .enter()
-    .append('svg:rect')
-    .attr({
-      fill: c.border,
-      width: w,
-      height: h,
-    })
-
-/* CREATE BOARD */
-var mapData = generateMap(n,m);
-
-var units = map.selectAll('span')
-              .data( _(mapData).reduce(function(memo, row){
-                  return memo.concat(row);
-                }, []) )
-              .enter()
-                .append('svg:rect')
-                .attr({
-                  x: function(d){return d.x * unitLen},
-                  y: function(d){return d.y * unitLen},
-                  width:  side,
-                  height: side,
-                  fill: function(d){
-                    return d.wall ? c.wall : c.empty;
-                  },
-                  class: 'unit',
-                });
-
-/* CLICK EVENTS */
-units.on('mouseenter', function(d, i){
-  var color = d.wall ? c.wall : c.active;
-    d3.select(this).attr('fill', color);
-});
-
-units.on('mouseleave', function(d, i){
-  var color = d.wall ? c.wall : c.empty;
-  setTimeout(function(){
-    d3.select(this).attr('fill', color);
-  }.bind(this), duration);
-});
-
-units.on('click', function(d, i){
-  var color = d.wall ? c.wall : c.red;
-    d3.select(this).attr('fill', color);
-});
-
 /* A-STAR SORT IN PSEUDOCLASSICAL STYLE */
 
 function A (graph) {
@@ -141,12 +41,12 @@ A.prototype.run = function (source, target) {
       }
     }
     current = this.openList.splice(currentIdx, 1)[0];
+    this.path.push(current);
+    this.closedList.push(current);
 
-    if (current === target){
+    if ((current.x === target.x) && (current.y === target.y)){
       return this.reconstructPath(this.path, target);
     }
-
-    this.closedList.push(current);
 
     neighbours = this.getNeighbours(current);
 
@@ -157,8 +57,9 @@ A.prototype.run = function (source, target) {
       }
       tempG = this.Fscore(current, n);
       inOpenList = _ol.contains(n);
+      inOpenList = _cl.contains(n);
+
       if (!inOpenList || tempG < n.gScore ){
-        this.path.push(current);
         n.gScore = tempG;
         n.fScore = this.heuristic(n, target);
         if (!inOpenList) {
@@ -175,11 +76,12 @@ A.prototype.getNeighbours = function(node){
   var neighbours = [];
   var x, y;
   var graph = this.graph;
+  var _cl = _(this.closedList);
 
   function addNeighbour(nx, ny){
     var newNode = graph[ny][nx];
     console.log('neighbour: (%d, %d)', nx, ny)
-    if (!graph[ny][nx].wall) {
+    if (!graph[ny][nx].wall && _cl.contains(newNode)) {
       newNode.parent = node;
       neighbours.push(newNode);
     }
@@ -201,7 +103,12 @@ A.prototype.getNeighbours = function(node){
 }
 
 A.prototype.reconstructPath = function(path, node) {
-  if (_(path).contains(node)){
+  var inPath = _(path).reduce(function(memo, item){
+    console.log(item.x, node.x, '&&', item.y, node.y)
+    return memo || ((item.x === node.x) && (item.y === node.y));
+  }, false);
+
+  if (inPath){
     p = this.reconstructPath(path, node.parent);
     console.log('path: (%d, %d)', p.x, p.y);
     return [node].concat(p);
@@ -211,8 +118,8 @@ A.prototype.reconstructPath = function(path, node) {
 }
 
 // temp variables
-source = mapData[0][0],
-target = mapData[4-1][4-1];
-var x = generateMap(4,4)
-var a = new A(x)
+// source = mapData[0][0],
+// target = mapData[4-1][4-1];
+// var x = generateMap(4,4)
+// var a = new A(x)
 // a.run(source, target)
