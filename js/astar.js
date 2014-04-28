@@ -137,6 +137,10 @@ A.prototype.run = function (source, target) {
       }
     }
 
+    if (current === target){
+      return reconstructedPath(this.path, goal);
+    }
+
   }
   this.path.push(source);
   return this.path;
