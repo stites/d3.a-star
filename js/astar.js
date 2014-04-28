@@ -123,22 +123,22 @@ A.prototype.Fscore = function (source, target) {
 };
 
 A.prototype.run = function (source, target) {
-  this.path.push(source);
   this.openList.push(source);
-  // base case
-  //if ( (node.x === target.x) && (node.y === target.y) ) {
-  //  return ;// done
-  //} else {
-  //  if (node.x - 1 > 0) {
-  //    // check to see if it's a wall
-  //  }
-  //  if (node.x + 1 > n) {
-  //  }
-  //  if (node.y - 1 > 0) {
-  //  }
-  //  if (node.y + 1 > m) {
-  //  }
-  //}
+  var current;
+  var currentF;
+  var lowestF = Infinity;
+  while (this.openList.length > 0) {
+
+    for(var i = 0; i < openList.length; i++){
+      currentF = this.Fscore(openList[i], target);
+      if (currentF < lowestF){
+        current = openList[i];
+        lowestF = currentF;
+      }
+    }
+
+  }
+  this.path.push(source);
   return this.path;
 }
 
