@@ -133,17 +133,19 @@ A.prototype.run = function (source, target) {
     for(var i = 0; i < openList.length; i++){
       currentF = this.Fscore(openList[i], target);
       if (currentF < lowestF){
-        current = openList[i];
         lowestF = currentF;
         currentIdx = i;
       }
     }
+    current = this.openList.splice(i, 1);
 
     if (current === target){
-      return reconstructedPath(this.path, goal);
+      return this.reconstructPath(this.path, goal);
     }
 
-    this.closedList.push(this.openList.splice(i, 1));
+    this.closedList.push(current);
+
+    neighbours = this.getNeighbours(current);
 
   }
   this.path.push(source);
