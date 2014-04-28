@@ -1,5 +1,5 @@
 describe('astar traversal, function astar:', function(){
-  var map, source, target, astarMap;
+  var map, source, target, astarMap, path;
 
   beforeEach(function(){
     map = generateMap(5,7);
@@ -17,19 +17,30 @@ describe('astar traversal, function astar:', function(){
     astarMap = new A(map);
   });
 
-  it('should return an object with an openList and closedList arrays', function(){
-    expect(astarMap).to.be.an('object');
-    expect(astarMap).to.have.property('closedList').to.be.an('array');
-    expect(astarMap).to.have.property('openList').to.be.an('array');
-  });
+  describe('the initialization of A*', function(){
 
-  it('should have a run function', function(){
-    expect(astarMap).to.have.property('run').to.be.a('function');
+    it('should return an object with an openList and closedList arrays', function(){
+      expect(astarMap).to.be.an('object');
+      expect(astarMap).to.have.property('closedList').to.be.an('array');
+      expect(astarMap).to.have.property('openList').to.be.an('array');
+      expect(astarMap).to.have.property('path').to.be.an('array');
+    });
+
+    it('should have a run function', function(){
+      expect(astarMap).to.have.property('run').to.be.a('function');
+    });
+
   });
 
   describe('run', function(){
+    it('should return an array', function(){
+      path = astarMap.run(source, target);
+      expect(path).to.be.an('array');
+    });
+
     it('should add the source node to an open list', function(){
-      var path = astarMap.run(source, target);
+      path = astarMap.run(source, target);
+
       expect(path).to.be.an('array');
     });
   });

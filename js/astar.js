@@ -106,6 +106,7 @@ function A (graph) {
   this.graph = graph;
   this.openList = [];
   this.closedList = [];
+  this.path = [];
 }
 
 A.prototype.run = function (node, target, graph) {
@@ -123,6 +124,6 @@ A.prototype.run = function (node, target, graph) {
   //  if (node.y + 1 > m) {
   //  }
   //}
-  return [];
+  return this.path;
 }
 
