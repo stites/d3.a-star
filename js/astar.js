@@ -109,8 +109,13 @@ function A (graph, gScore) {
   this.path = [];
 }
 
-A.prototype.heuristic = function (source, target) {
-  return source - target;
+A.prototype.heuristic = function (source, target, heuristic) {
+  heuristic = heuristic || this.manhattan;
+  return heuristic(source, target);
+};
+
+A.prototype.manhattan = function (source, target) {
+  return Math.abs(target.x - source.x) + Math.abs(target.y - source.y);
 };
 
 A.prototype.Fscore = function (source, target) {

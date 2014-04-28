@@ -31,6 +31,7 @@ describe('astar traversal, function astar:', function(){
     it('should have a run, Fscore functions', function(){
       expect(astarMap).to.have.property('run').to.be.a('function');
       expect(astarMap).to.have.property('heuristic').to.be.a('function');
+      expect(astarMap).to.have.property('manhattan').to.be.a('function');
       expect(astarMap).to.have.property('Fscore').to.be.a('function');
     });
   });
@@ -40,6 +41,33 @@ describe('astar traversal, function astar:', function(){
     it('should return a number', function(){
       expect(astarMap.heuristic(source, target)).to.be.a('number');
     });
+
+    it('should default to the manhattan heuristic', function(){
+      sinon.spy(astarMap, 'manhattan');
+      astarMap.heuristic(source, target);
+      expect(astarMap.manhattan.calledOnce).to.equal(true);
+    })
+
+  });
+
+  describe('the manhattan heuristic', function(){
+
+    it('should calculate manhattan differences of x and y distance', function(){
+      source.x = 0;
+      source.y = 0;
+      target.x = 0;
+      target.y = 1;
+      var manhattan = astarMap.heuristic(source, target)
+      expect(manhattan).to.equal(1)
+      target.x = 6;
+      target.y = 6;
+      manhattan = astarMap.heuristic(source, target)
+      expect(manhattan).to.equal(12)
+      target.x = 3;
+      target.y = 7;
+      manhattan = astarMap.heuristic(source, target)
+      expect(manhattan).to.equal(10)
+    })
 
   });
 
