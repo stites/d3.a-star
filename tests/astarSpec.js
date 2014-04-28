@@ -48,28 +48,37 @@ describe('astar traversal, function astar:', function(){
       expect(astarMap.manhattan.calledOnce).to.equal(true);
     })
 
+    describe('the manhattan heuristic', function(){
+
+      it('should calculate manhattan differences of x and y distance', function(){
+        source.x = 0;
+        source.y = 0;
+        target.x = 0;
+        target.y = 1;
+        var manhattan = astarMap.heuristic(source, target)
+        expect(manhattan).to.equal(1)
+        target.x = 6;
+        target.y = 6;
+        manhattan = astarMap.heuristic(source, target)
+        expect(manhattan).to.equal(12)
+        target.x = 3;
+        target.y = 7;
+        manhattan = astarMap.heuristic(source, target)
+        expect(manhattan).to.equal(10)
+      })
+
+    });
+
   });
 
-  describe('the manhattan heuristic', function(){
-
-    it('should calculate manhattan differences of x and y distance', function(){
-      source.x = 0;
-      source.y = 0;
-      target.x = 0;
-      target.y = 1;
-      var manhattan = astarMap.heuristic(source, target)
-      expect(manhattan).to.equal(1)
-      target.x = 6;
-      target.y = 6;
-      manhattan = astarMap.heuristic(source, target)
-      expect(manhattan).to.equal(12)
-      target.x = 3;
-      target.y = 7;
-      manhattan = astarMap.heuristic(source, target)
-      expect(manhattan).to.equal(10)
-    })
-
+  describe('the Fscore', function () {
+    it('should run the heuristic', function () {
+      sinon.spy(astarMap, 'heuristic');
+      astarMap.Fscore(source, target);
+      expect(astarMap.heuristic.calledOnce).to.equal(true);
+    });
   });
+
 
   describe('run', function(){
     it('should return an array', function(){

@@ -119,6 +119,7 @@ A.prototype.manhattan = function (source, target) {
 };
 
 A.prototype.Fscore = function (source, target) {
+  return this.gScore - this.heuristic(source, target);
 };
 
 A.prototype.run = function (source, target) {
