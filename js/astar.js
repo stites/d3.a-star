@@ -127,6 +127,7 @@ A.prototype.run = function (source, target) {
   var current;
   var currentF;
   var lowestF = Infinity;
+  var currentIdx;
   while (this.openList.length > 0) {
 
     for(var i = 0; i < openList.length; i++){
@@ -134,12 +135,15 @@ A.prototype.run = function (source, target) {
       if (currentF < lowestF){
         current = openList[i];
         lowestF = currentF;
+        currentIdx = i;
       }
     }
 
     if (current === target){
       return reconstructedPath(this.path, goal);
     }
+
+    this.closedList.push(this.openList.splice(i, 1));
 
   }
   this.path.push(source);
