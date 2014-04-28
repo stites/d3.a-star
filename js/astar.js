@@ -1,4 +1,3 @@
-
 /* VARIABLES */
 var w           = window.innerWidth,
     h           = window.innerHeight,
@@ -102,12 +101,19 @@ units.on('click', function(d, i){
 source = mapData[0][0],
 target = mapData[n-1][m-1];
 
-function A (graph) {
+function A (graph, gScore) {
   this.graph = graph;
+  this.gScore = gScore;
   this.openList = [];
   this.closedList = [];
   this.path = [];
 }
+
+A.prototype.heuristic = function (source, target) {
+};
+
+A.prototype.Fscore = function (source, target) {
+};
 
 A.prototype.run = function (source, target) {
   this.path.push(source);

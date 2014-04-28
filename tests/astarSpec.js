@@ -14,7 +14,7 @@ describe('astar traversal, function astar:', function(){
       node.wall = true;
     });
 
-    astarMap = new A(map);
+    astarMap = new A(map, 5);
   });
 
   describe('the initialization of A*', function(){
@@ -24,18 +24,40 @@ describe('astar traversal, function astar:', function(){
       expect(astarMap).to.have.property('closedList').to.be.an('array');
       expect(astarMap).to.have.property('openList').to.be.an('array');
       expect(astarMap).to.have.property('path').to.be.an('array');
+      expect(astarMap).to.have.property('gScore').to.be.a('number');
+      expect(astarMap).to.have.property('gScore').to.be.a('number');
+    });
+
+    it('should have a run, Fscore functions', function(){
+      expect(astarMap).to.have.property('run').to.be.a('function');
+      expect(astarMap).to.have.property('heuristic').to.be.a('function');
+      expect(astarMap).to.have.property('Fscore').to.be.a('function');
+    });
+  });
+
+  describe('Fscore', function(){
+
+    it('should return a number', function(){
+
+      expect(astarMap).to.have.property('path').to.be.an('array');
     });
 
     it('should have a run function', function(){
       expect(astarMap).to.have.property('run').to.be.a('function');
     });
-
   });
 
   describe('run', function(){
     it('should return an array', function(){
       path = astarMap.run(source, target);
       expect(path).to.be.an('array');
+    });
+
+    it('should add the source node to an open list and path', function(){
+      path = astarMap.run(source, target);
+
+      expect(astarMap.openList).to.contain(source);
+      expect(path).to.contain(source);
     });
 
     it('should add the source node to an open list and path', function(){
