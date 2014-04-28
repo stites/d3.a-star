@@ -14,7 +14,7 @@ describe('astar traversal, function astar:', function(){
       node.wall = true;
     });
 
-    astarMap = new A(map, 5);
+    astarMap = new A(map, 0);
   });
 
   describe('the initialization of A*', function(){
@@ -35,16 +35,12 @@ describe('astar traversal, function astar:', function(){
     });
   });
 
-  describe('Fscore', function(){
+  describe('the heuristic function', function(){
 
     it('should return a number', function(){
-
-      expect(astarMap).to.have.property('path').to.be.an('array');
+      expect(astarMap.heuristic(source, target)).to.be.a('number');
     });
 
-    it('should have a run function', function(){
-      expect(astarMap).to.have.property('run').to.be.a('function');
-    });
   });
 
   describe('run', function(){

@@ -110,6 +110,7 @@ function A (graph, gScore) {
 }
 
 A.prototype.heuristic = function (source, target) {
+  return source - target;
 };
 
 A.prototype.Fscore = function (source, target) {
